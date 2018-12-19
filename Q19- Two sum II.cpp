@@ -2,7 +2,6 @@
 Link - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted
 */
 
-
 vector<int> twoSum(vector<int>& numbers, int target) {
     int i = 0, j  = numbers.size()-1;
     vector<int> ans;
