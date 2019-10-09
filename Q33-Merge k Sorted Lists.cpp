@@ -10,39 +10,36 @@ https://leetcode.com/problems/merge-k-sorted-lists/
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-struct CustomSet {
-    bool operator()(const ListNode *left, const ListNode *right) const {
-        return left->val <= right->val;
-    }
+struct compare{
+bool operator()(ListNode * A,ListNode * B){
+    if(A->val>B->val)return true;
+    return false;
+}
+    
 };
+ListNode* Solution::mergeKLists(vector<ListNode*> &A) {
+    priority_queue <ListNode *, vector<ListNode *> , compare>q;
+    int i=0;
+    for(i=0;i<A.size();i++){
+        if(A[i]){
+            q.push(A[i]);
+        }
+    }
+    ListNode * res=NULL,*cur,*it;
+    while(q.size()){
+        cur=q.top();
+        q.pop();
+        if(res){
+            it->next=cur;
+            it=it->next;    
+        }
+        else{
+            res=cur;
+            it=res;
+        }
+        
+        if(cur->next){q.push(cur->next);}
+    }
+    return res;
+}
 
-class Solution {
-public:
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.empty()) {
-            return NULL;
-        }
-        ListNode* root = NULL;
-        set<ListNode*, CustomSet> nodes;
-        for(auto node : lists) {
-            while(node) {
-                nodes.insert(node);
-                node = node->next;
-            }
-        }
-        if(nodes.empty()) {
-            return NULL;
-        }
-        ListNode* temp = NULL;
-        for(auto node : nodes) {
-            if(root == NULL) {
-                root = temp = node;
-            } else {
-                temp->next = node;
-                temp = temp->next;
-            }
-            temp->next = NULL;
-        }
-        return root;
-    }
-};
